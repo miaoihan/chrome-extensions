@@ -1,0 +1,32 @@
+{
+  "name": "go",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  // 简单描述
+  "description": "my first chrome plug",
+
+  // 浏览器小图表部分
+  "browser_action": {
+    "default_icon": "image/icon.png",
+    "default_popup": "html/demo01.html"
+  },
+
+  // 引入一个脚本
+  "content_scripts": [
+    {
+      "js": ["script/demo01.js"],
+      // 在什么情况下使用该脚本
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      // 什么情况下运行【文档加载开始】
+      "run_at": "document_start"
+    }
+  ],
+  // 应用协议页面
+  "permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}
