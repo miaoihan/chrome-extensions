@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试</title>
+  <style>
+    .container {
+      padding: 10px;
+    }
+    .wrapper {
+      width: 300px;
+      height: 500px;
+    }
+    .task-input {
+      width: 100%;
+      height: 30px;
+    }
+    .on{
+      height: 15px;
+      width: 15px;
+      display: inline-block
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="top">
+        <!--<div class="top-title">
+          小蜂清单
+        </div>-->
+        <input type="text" class="task-input" id="task-input" placeholder="添加任务">
+      </div>
+      <div class="content">
+        <section class="task-list-wrapper">
+          <h3 class="content-title">
+            清单
+          </h3>
+          <div class="task-list" id="task-list">
+            <div class="task-item">
+              <input type="checkbox">
+              <span class="task-content" style="font-size: 14px;">搞定页面</span>
+            </div>
+          </div>
+        </section>
+        <section class="done-list-wrapper">
+          <h3 class="content-title">
+            已完成
+          </h3>
+        </section>
+      </div>
+ 
+    </div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

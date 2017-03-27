@@ -1,0 +1,40 @@
+{
+  "name": "ToDoList",
+  "version": "0.1",
+  "manifest_version": 2,
+  // 简单描述
+  "description": "a ToDoList",
+  "icons": {
+    "16": "image/todo19.png",
+    "48": "image/todo.jpg"
+  },
+  // 浏览器小图表部分,需要是透明背景图片
+  "browser_action": {
+    "default_icon": "image/todo19.png",
+    "default_popup": "todo.html"
+  },
+  "background": {
+      "scripts": [
+          "js/background.js"
+      ]
+  },
+  // 引入一个脚本
+  "content_scripts": [
+    {
+      "js": ["js/todo.js"],
+      // 在什么情况下使用该脚本
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      // 什么情况下运行【文档加载开始】
+      "run_at": "document_start"
+    }
+  ],
+  // 应用协议页面
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "storage"
+  ]
+}
