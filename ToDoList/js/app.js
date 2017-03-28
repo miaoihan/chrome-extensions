@@ -6,23 +6,21 @@ let $ = function(id){
  * append公共方法
  * @param {*task content} val 
  */
-function appendTodoHtml(val){
+function appendHtmlTo(task,id){
+    let check
+    if (task.isFinish == false) check = ""
+    else check = "checked"
     let taskItemHtml = 
         `<div class="task-item">
-            <input type="checkbox">
-            <span class="task-content" style="font-size: 14px;">${val}</span>
+            <input type="checkbox" id="${task.id}" ${check}>
+            <span class="task-content" style="font-size: 14px;">${task.content}</span>
         </div>`
-    $('task-list').innerHTML += taskItemHtml
-    $('task-input').value = ''
-}
-
-function appendDoneHtml(val){
-    let taskItemHtml = 
-        `<div class="task-item">
-            <input type="checkbox">
-            <span class="task-content" style="font-size: 14px;">${val}</span>
-        </div>`
-    $('done-list').innerHTML += taskItemHtml
+    $(id).innerHTML += taskItemHtml
+    // 添加监听
+    // document.getElementById(task.id).addEventListener('change',function(e){
+    //     alert('changed')
+    //     new Task().changeState(task.id)
+    // })
     $('task-input').value = ''
 }
 
@@ -30,35 +28,53 @@ function appendDoneHtml(val){
 $('task-input').addEventListener('keyup', function(event) {
     if (event.keyCode == "13") {
         let taskContent = $('task-input').value;
-        appendTodoHtml(taskContent)
+        // appendTodoHtml(taskContent)
         // 存储逻辑
-        let task = new Task(taskContent,0)
+        let task = new Task(taskContent,false)
         task.save(task)
     }
 });
 
 function updateView(data) {
+    // 先清空视图
+    $('task-list').innerHTML = '';$('done-list').innerHTML = '';
     for(let task of data){
-        if (task.state == 0)
-            appendTodoHtml(task.content)
-        else if (task.state == 1)
-            appendDoneHtml(task.content)
+        if (task.isFinish == false)
+            appendHtmlTo(task,'task-list')
+        else if (task.isFinish == true)
+            appendHtmlTo(task,'done-list')
     }
 }
 
+// 第一次打开时获取数据
 chrome.storage.sync.get('taskList', function(res){
-    // console.log(res.taskList);
-    for(let i of res.taskList){
-        appendTodoHtml(i.content)
-    }
+    updateView(res.taskList)
+    // 生成box后开始监听
+    setInterval(function() {
+        let boxes = document.querySelectorAll('input[type=checkbox]');
+        for (let box of boxes){
+            box.addEventListener('change',function(e){
+                // alert('changed')
+                new Task().changeState(this.id)
+            })
+        }
+    }, 200);
+});
+
+// chrome.storage.sync.remove('taskList', function(res){
+//     alert('removed')
+// });
+
+chrome.storage.onChanged.addListener(function() {
+    // 更新视图remove
+    chrome.storage.sync.get('taskList', function(res){
+        updateView(res.taskList)
+    });
+});
+
     
-});
 
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-    alert('changed!')
-    // 更新视图
 
-});
 
 // chrome.runtime.sendMessage('fetchData', function(res){
 //     // document.getElementById("task-list").innerHTML = "hahaha";
