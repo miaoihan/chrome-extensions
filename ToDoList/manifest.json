@@ -19,18 +19,18 @@
       ]
   },
   // 引入一个脚本
-  "content_scripts": [
-    {
-      "js": ["js/todo.js"],
-      // 在什么情况下使用该脚本
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      // 什么情况下运行【文档加载开始】
-      "run_at": "document_start"
-    }
-  ],
+  // "content_scripts": [
+  //   {
+  //     "js": ["js/app.js","js/require.min.js"],
+  //     // 在什么情况下使用该脚本
+  //     "matches": [
+  //       "http://cdn.bootcss.com",
+  //       "https://*/*"
+  //     ],
+  //     // 什么情况下运行【文档加载开始】
+  //     "run_at": "document_start"
+  //   }
+  // ],
   // 应用协议页面
   "permissions": [
     "http://*/*",

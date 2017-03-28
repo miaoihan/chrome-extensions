@@ -1,5 +1,7 @@
+
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-    if(message == 'Hello'){
-        sendResponse('Hello from background.');
+    if(message == 'fetchData'){
+        let taskList = JSON.parse(localStorage.taskList)
+        sendResponse(taskList);
     }
 });
