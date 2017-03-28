@@ -61,6 +61,7 @@ chrome.storage.sync.get('taskList', function(res){
     }, 200);
 });
 
+// 清除数据
 // chrome.storage.sync.remove('taskList', function(res){
 //     alert('removed')
 // });
